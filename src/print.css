@@ -1,0 +1,40 @@
+@media print {
+  * {
+    visibility: hidden;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  
+  .print-content, .print-content * {
+    visibility: visible;
+  }
+  
+  .print-content {
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform-origin: 0 0;
+    transform: scale(1);
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  
+  @page {
+    size: 205mm 93mm; /* Will be overridden by inline styles */
+    margin: 0;
+  }
+  
+  /* Ensure exact cheque dimensions */
+  .cheque-container {
+    width: 100% !important;
+    height: 100% !important;
+    position: relative !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    transform: none !important;
+    zoom: 1 !important;
+  }
+}
