@@ -5,11 +5,10 @@ import Templates from './components/Templates';
 import History from './components/History';
 
 import { parseTemplate } from './utils/templateParser';
-import { SBI_TEMPLATE } from './utils/constants';
 
 function App() {
   const [activeTab, setActiveTab] = useState('form');
-  const [templates, setTemplates] = useState([{ ...SBI_TEMPLATE, active: true }]);
+  const [templates, setTemplates] = useState([]);
   const [history, setHistory] = useState([]);
 
   // Load history from localStorage on startup
@@ -112,34 +111,41 @@ function App() {
 
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
-
-      
-      <div className="container mx-auto px-4 py-8">
-        <header className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-2">Check Printing System</h1>
-          <p className="text-gray-600 dark:text-gray-300">Professional bank check printing with customizable templates</p>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-slate-900 dark:to-gray-800 transition-all duration-300">
+      <div className="container mx-auto px-6 py-8 max-w-7xl">
+        <header className="mb-12 text-center">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl mb-6 shadow-lg">
+            <FileText className="h-8 w-8 text-white" />
+          </div>
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 dark:from-gray-100 dark:to-gray-300 bg-clip-text text-transparent mb-3">
+            Check Printing System
+          </h1>
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            Professional bank check printing with customizable templates and modern design
+          </p>
         </header>
 
-        <nav className="mb-8">
-          <div className="flex space-x-1 bg-white dark:bg-gray-800 rounded-lg shadow-sm p-1">
-            {tabs.map(tab => {
-              const Icon = tab.icon;
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-md font-medium transition-colors ${
-                    activeTab === tab.id
-                      ? 'bg-blue-600 text-white'
-                      : 'text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700'
-                  }`}
-                >
-                  <Icon className="h-4 w-4" />
-                  {tab.label}
-                </button>
-              );
-            })}
+        <nav className="mb-10">
+          <div className="flex justify-center">
+            <div className="inline-flex space-x-2 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 dark:border-gray-700/20 p-2">
+              {tabs.map(tab => {
+                const Icon = tab.icon;
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                    className={`flex items-center gap-3 px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
+                      activeTab === tab.id
+                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg transform scale-105'
+                        : 'text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100 hover:bg-white/50 dark:hover:bg-gray-700/50'
+                    }`}
+                  >
+                    <Icon className="h-5 w-5" />
+                    <span className="font-semibold">{tab.label}</span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </nav>
 

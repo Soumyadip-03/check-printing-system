@@ -143,23 +143,32 @@ const Templates = ({ templates, onTemplateUpload, onTemplateToggle, onTemplateDe
   };
 
   return (
-    <div className="space-y-6">
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <h2 className="text-xl font-semibold text-gray-800 mb-6">Upload Template</h2>
+    <div className="space-y-8">
+      <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 p-8">
+        <div className="flex items-center gap-3 mb-8">
+          <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center">
+            <Upload className="h-5 w-5 text-white" />
+          </div>
+          <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100">Upload Template</h2>
+        </div>
         
 
 
         <div
-          className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
-            dragActive ? 'border-blue-500 bg-blue-50' : 'border-gray-300'
+          className={`border-2 border-dashed rounded-2xl p-12 text-center transition-all duration-300 ${
+            dragActive 
+              ? 'border-blue-500 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 scale-105' 
+              : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 bg-gray-50/50 dark:bg-gray-700/50'
           }`}
           onDragEnter={() => setDragActive(true)}
           onDragLeave={() => setDragActive(false)}
           onDragOver={(e) => e.preventDefault()}
           onDrop={handleDrop}
         >
-          <Upload className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-          <p className="text-gray-600 mb-4">
+          <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <Upload className="h-8 w-8 text-white" />
+          </div>
+          <p className="text-gray-600 dark:text-gray-300 mb-6 text-lg font-medium">
             Drag and drop a JSON template file here, or click to select
           </p>
           <input
@@ -171,70 +180,78 @@ const Templates = ({ templates, onTemplateUpload, onTemplateToggle, onTemplateDe
           />
           <label
             htmlFor="template-upload"
-            className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 cursor-pointer inline-block transition-colors"
+            className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-3 rounded-xl hover:from-blue-700 hover:to-indigo-700 cursor-pointer inline-block transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 font-semibold"
           >
             Select File
           </label>
         </div>
 
         {uploadError && (
-          <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-md flex items-center gap-2">
-            <AlertCircle className="h-5 w-5 text-red-500" />
-            <span className="text-red-700">{uploadError}</span>
+          <div className="mt-6 p-4 bg-gradient-to-r from-red-50 to-pink-50 dark:from-red-900/20 dark:to-pink-900/20 border-2 border-red-200 dark:border-red-800 rounded-xl flex items-center gap-3">
+            <AlertCircle className="h-6 w-6 text-red-500" />
+            <span className="text-red-700 dark:text-red-400 font-medium">{uploadError}</span>
           </div>
         )}
       </div>
 
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <h2 className="text-xl font-semibold text-gray-800 mb-6">Manage Templates</h2>
+      <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 p-8">
+        <div className="flex items-center gap-3 mb-8">
+          <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+            <FileText className="h-5 w-5 text-white" />
+          </div>
+          <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100">Manage Templates</h2>
+        </div>
         
         {templates.length === 0 ? (
-          <div className="text-center py-8 text-gray-500">
-            <FileText className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-            <p>No templates uploaded yet</p>
+          <div className="text-center py-12 text-gray-500">
+            <div className="w-20 h-20 bg-gray-100 dark:bg-gray-700 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <FileText className="h-10 w-10 text-gray-400" />
+            </div>
+            <p className="text-lg font-medium">No templates uploaded yet</p>
+            <p className="text-sm text-gray-400 mt-2">Upload your first template to get started</p>
           </div>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-6">
             {templates.map((template) => (
               <div
                 key={template.id}
-                className="border border-gray-200 rounded-lg p-4 flex items-center justify-between"
+                className="border-2 border-gray-200 dark:border-gray-600 rounded-2xl p-6 flex items-center justify-between bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm hover:shadow-lg transition-all duration-200 hover:border-gray-300 dark:hover:border-gray-500"
               >
-                <div className="flex items-center gap-4">
-                  <div className={`p-2 rounded-full ${template.active ? 'bg-green-100' : 'bg-gray-100'}`}>
+                <div className="flex items-center gap-6">
+                  <div className={`p-3 rounded-2xl ${template.active ? 'bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30' : 'bg-gray-100 dark:bg-gray-600'}`}>
                     {template.active ? (
-                      <CheckCircle className="h-5 w-5 text-green-600" />
+                      <CheckCircle className="h-6 w-6 text-green-600" />
                     ) : (
-                      <XCircle className="h-5 w-5 text-gray-400" />
+                      <XCircle className="h-6 w-6 text-gray-400" />
                     )}
                   </div>
                   <div>
-                    <h3 className="font-medium text-gray-800">{template.name}</h3>
-                    <p className="text-sm text-gray-500">ID: {template.id}</p>
+                    <h3 className="font-bold text-gray-800 dark:text-gray-100 text-lg">{template.name}</h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">ID: {template.id}</p>
                     {template.uploadedAt && (
-                      <p className="text-xs text-gray-400">
+                      <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">
                         Uploaded: {new Date(template.uploadedAt).toLocaleDateString()}
                       </p>
                     )}
                   </div>
                 </div>
                 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3">
                   {window.electronAPI && (
                     <button
                       onClick={() => handleSaveTemplate(template)}
-                      className="p-2 text-blue-600 hover:bg-blue-50 rounded transition-colors"
+                      className="p-3 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-xl transition-all duration-200 hover:scale-110"
                       title="Save Template"
                     >
-                      <Download className="h-4 w-4" />
+                      <Download className="h-5 w-5" />
                     </button>
                   )}
                   <button
                     onClick={() => onTemplateToggle(template.id)}
-                    className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
+                    className={`px-6 py-2 rounded-xl text-sm font-semibold transition-all duration-200 hover:scale-105 ${
                       template.active
-                        ? 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200'
-                        : 'bg-green-100 text-green-800 hover:bg-green-200'
+                        ? 'bg-gradient-to-r from-yellow-100 to-orange-100 text-yellow-800 hover:from-yellow-200 hover:to-orange-200 dark:from-yellow-900/30 dark:to-orange-900/30 dark:text-yellow-400'
+                        : 'bg-gradient-to-r from-green-100 to-emerald-100 text-green-800 hover:from-green-200 hover:to-emerald-200 dark:from-green-900/30 dark:to-emerald-900/30 dark:text-green-400'
                     }`}
                   >
                     {template.active ? 'Deactivate' : 'Activate'}
@@ -245,9 +262,9 @@ const Templates = ({ templates, onTemplateUpload, onTemplateToggle, onTemplateDe
                         onTemplateDelete(template.id);
                       }
                     }}
-                    className="p-2 text-red-600 hover:bg-red-50 rounded transition-colors"
+                    className="p-3 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl transition-all duration-200 hover:scale-110"
                   >
-                    <Trash2 className="h-4 w-4" />
+                    <Trash2 className="h-5 w-5" />
                   </button>
                 </div>
               </div>
