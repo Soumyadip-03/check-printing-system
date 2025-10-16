@@ -2,6 +2,7 @@ const { app, BrowserWindow, Menu, dialog, ipcMain } = require('electron');
 const { autoUpdater } = require('electron-updater');
 const path = require('path');
 const fs = require('fs');
+const packageJson = require('./package.json');
 
 let mainWindow;
 
@@ -142,7 +143,7 @@ function createMenu() {
               type: 'info',
               title: 'About',
               message: 'Check Printing System',
-              detail: 'Professional bank check printing application\\nVersion 1.0.0'
+              detail: `Professional bank check printing application\nVersion ${packageJson.version}\nAuthor: ${packageJson.author}`
             });
           }
         }
