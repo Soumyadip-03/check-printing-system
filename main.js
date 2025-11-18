@@ -242,18 +242,47 @@ app.whenReady().then(() => {
   // Auto-updater setup
   const isDev = !app.isPackaged;
   if (!isDev) {
+    // Enable logging
+    autoUpdater.logger = require('electron-log');
+    autoUpdater.logger.transports.file.level = 'info';
+    
+    console.log('Checking for updates...');
     autoUpdater.checkForUpdatesAndNotify();
     
-    autoUpdater.on('update-available', () => {
+    autoUpdater.on('checking-for-update', () => {
+      console.log('Checking for update...');
+    });
+    
+    autoUpdater.on('update-available', (info) => {
+      console.log('Update available:', info);
       dialog.showMessageBox(mainWindow, {
         type: 'info',
         title: 'Update Available',
-        message: 'A new version is available. It will be downloaded in the background.',
+        message: `A new version ${info.version} is available. It will be downloaded in the background.`,
         buttons: ['OK']
       });
     });
     
-    autoUpdater.on('update-downloaded', () => {
+    autoUpdater.on('update-not-available', (info) => {
+      console.log('Update not available:', info);
+    });
+    
+    autoUpdater.on('error', (err) => {
+      console.error('Update error:', err);
+      dialog.showMessageBox(mainWindow, {
+        type: 'error',
+        title: 'Update Error',
+        message: 'Error checking for updates: ' + err.message,
+        buttons: ['OK']
+      });
+    });
+    
+    autoUpdater.on('download-progress', (progressObj) => {
+      console.log('Download progress:', progressObj.percent);
+    });
+    
+    autoUpdater.on('update-downloaded', (info) => {
+      console.log('Update downloaded:', info);
       dialog.showMessageBox(mainWindow, {
         type: 'info',
         title: 'Update Ready',
