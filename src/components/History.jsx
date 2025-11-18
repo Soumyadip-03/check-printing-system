@@ -10,11 +10,30 @@ const History = ({ history, templates, onDeleteHistory }) => {
     return template ? template.name : 'Unknown Template';
   };
 
+  const formatDisplayDate = (dateStr) => {
+    // Handle DD/MM/YYYY format
+    if (dateStr && dateStr.includes('/')) {
+      const parts = dateStr.split('/');
+      if (parts.length === 3) {
+        const day = parts[0];
+        const month = parts[1];
+        const year = parts[2];
+        return `${day}/${month}/${year}`;
+      }
+    }
+    // Fallback to Date parsing
+    try {
+      return new Date(dateStr).toLocaleDateString();
+    } catch {
+      return dateStr;
+    }
+  };
+
   const filteredHistory = history.filter(check => {
     if (!searchTerm) return true;
     
     const searchLower = searchTerm.toLowerCase();
-    const displayDate = new Date(check.date).toLocaleDateString();
+    const displayDate = formatDisplayDate(check.date);
     
     switch (filterField) {
       case 'payeeName':
@@ -96,7 +115,7 @@ const History = ({ history, templates, onDeleteHistory }) => {
                         <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center">
                           <Calendar className="h-4 w-4 text-blue-600 dark:text-blue-400" />
                         </div>
-                        <span className="font-medium text-gray-800 dark:text-gray-200">{new Date(check.date).toLocaleDateString()}</span>
+                        <span className="font-medium text-gray-800 dark:text-gray-200">{formatDisplayDate(check.date)}</span>
                       </div>
                     </td>
                     <td className="py-4 px-6">

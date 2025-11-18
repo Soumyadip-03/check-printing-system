@@ -11,6 +11,19 @@ function App() {
   const [templates, setTemplates] = useState([]);
   const [history, setHistory] = useState([]);
 
+  // Load templates from localStorage on startup
+  useEffect(() => {
+    const savedTemplates = localStorage.getItem('checkTemplates');
+    if (savedTemplates) {
+      setTemplates(JSON.parse(savedTemplates));
+    }
+  }, []);
+
+  // Save templates to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('checkTemplates', JSON.stringify(templates));
+  }, [templates]);
+
   // Load history from localStorage on startup
   useEffect(() => {
     const savedHistory = localStorage.getItem('checkHistory');

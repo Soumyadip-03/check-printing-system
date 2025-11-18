@@ -30,7 +30,6 @@ function createWindow() {
     const buildPath = path.join(__dirname, 'build', 'index.html');
     console.log('Loading build from:', buildPath);
     mainWindow.loadFile(buildPath);
-    mainWindow.webContents.openDevTools(); // Keep devtools open to see errors
   }
 
   mainWindow.on('closed', () => {
