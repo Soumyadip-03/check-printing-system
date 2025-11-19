@@ -1,6 +1,6 @@
 {
   "name": "check-printer",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Professional desktop application for printing bank checks with customizable JSON templates, featuring precise field positioning, Indian number-to-words conversion, and comprehensive template management.",
   "author": "Soumyadip Khan Sarkar",
   "main": "main.js",
