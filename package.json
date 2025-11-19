@@ -46,7 +46,7 @@
   },
   "build": {
     "appId": "com.checkprinter.app",
-    "productName": "Check Printer",
+    "productName": "Check_Printer",
     "directories": {
       "output": "dist"
     },
